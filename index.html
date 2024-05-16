@@ -30,6 +30,7 @@
 		let takeGato = async function () {
 			const responce = await fetch("https://api.thecatapi.com/v1/images/search");
 			const data = await responce.json();
+
 			image.src = data[0].url;
 
 			image.onload = function () {
