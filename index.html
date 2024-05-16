@@ -2,27 +2,47 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.2/pico.min.css"
-        integrity="sha512-3gFq2IXMVlAQaUyahzhjDRivv0yqyXTb7xiy6ivTaG5Uz4hKI54uYxpQefdomgDVQ11eJVUbXG0YdPMDISiGgg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>🐈 Gato-API 🐈</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.2/pico.min.css"
+		integrity="sha512-3gFq2IXMVlAQaUyahzhjDRivv0yqyXTb7xiy6ivTaG5Uz4hKI54uYxpQefdomgDVQ11eJVUbXG0YdPMDISiGgg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title>🐈 Gato-API 🐈</title>
 </head>
 
 <body>
-    <div class="container" id="cat-container" style="width:75%; margin: 1rem auto;text-align: center;">
-        <img id="cat-image" src="" alt="un gato">
-        <button id="get-cat" style="margin-top: 1rem;">Nuevo Gato</button>
-    </div>
-    <div class="container">
-        <h2 id="width">Width: <span></span></h2>
-        <h2 id="height">Height: <span></span></h2>
-    </div>
-    <script>
-        // Suerte !
-    </script>
+	<div class="container" id="cat-container" style="width:75%; margin: 1rem auto;text-align: center;">
+		<img id="cat-image" src="" alt="un gato">
+		<button id="get-cat" style="margin-top: 1rem;">Nuevo Gato</button>
+	</div>
+	<div class="container">
+		<h2 id="width">Width: <span></span></h2>
+		<h2 id="height">Height: <span></span></h2>
+	</div>
+	<script>
+		// Suerte !
+		const image = document.querySelector("#cat-image");
+		const button = document.querySelector("#get-cat");
+		const width = document.querySelector("#width span");
+		const height = document.querySelector("#height span");
+
+		let takeGato = async function () {
+			const responce = await fetch("https://api.thecatapi.com/v1/images/search");
+			const data = await responce.json();
+			image.src = data[0].url;
+
+			image.onload = function () {
+				width.textContent = data[0].width;
+				height.textContent = data[0].height;
+			};
+
+
+		}
+		button.addEventListener("click", takeGato);
+
+		takeGato();
+	</script>
 </body>
 
 </html>
